@@ -4,10 +4,9 @@ import OpenAI from 'openai';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-// Load environment variables
+
 config();
 
-// Create a web server
 const app = express();
 const port = process.env.PORT || 3034;
 
@@ -19,22 +18,20 @@ app.listen(port, () => {
 });
 
 
-// Initialize OpenAI API
-
 const openai = new OpenAI({
-  apiKey: "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" // This is also the default, can be omitted
+  apiKey: process.env.OPENAI_API_KEY
 });
 
-// Define a route to handle questions
+
 app.post('/ask', async (req, res) => {
   //console.log("aló",req.body)
   const userMessage = req.body.message;
 
-  // Call the OpenAI API to generate an answer
   var prompt = `Quiero que actúes como médico holístico e idees tratamientos creativos para enfermedades o dolencias. 
-  Deberá ser capaz de recomendar medicamentos convencionales, hierbas medicinales y otras alternativas naturales. 
+  Deberá ser capaz de recomendar medicamentos convencionales, hierbas medicinales y otras alternativas naturales.
   También deberá tener en cuenta la edad, el estilo de vida y el historial médico del paciente a la hora de ofrecer sus recomendaciones. 
-  Recuerde responder en no más de 250 caracteres.
+  Recuerde responder en no más de 500 caracteres. Recuerda que, sino se trata sobre una enfermedad o algo que se pueda curar con recetas medicinales caseras
+  deberás responder que ese tema no es de tu conocimiento. Sin embargo, si es un saludo o algo similar, deberás devolver el saludo, preguntando en qué enfermedad o dolencia necesita ayuda
   Mi primera solicitud es elaborar un plan de tratamiento centrado en métodos curativos holísticos para un paciente que tiene los siguientes síntomas: ".
   `
   const chatCompletion = await openai.chat.completions.create({
