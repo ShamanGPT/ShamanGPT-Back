@@ -3,7 +3,7 @@ import { config } from 'dotenv';
 import OpenAI from 'openai';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-
+import ServerlessHttp from 'serverless-http';
 
 config();
 
@@ -40,3 +40,6 @@ app.post('/ask', async (req, res) => {
   });
   res.send(chatCompletion.choices[0].message);
 });
+
+
+export const handler = ServerlessHttp(app);
