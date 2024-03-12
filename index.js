@@ -17,9 +17,8 @@ app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
 
-
 const openai = new OpenAI({
-  apiKey: "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"
+  apiKey: process.env.OPENAI_API_KEY
 });
 
 
